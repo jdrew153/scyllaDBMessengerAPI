@@ -1,7 +1,7 @@
 use chrono::Utc;
 use futures::StreamExt;
-use scylla::{FromRow, IntoTypedRows, QueryResult, SerializeRow, Session, ValueList};
-use rocket::serde::{Serialize, Deserialize, json::Json};
+use scylla::{FromRow, SerializeRow, Session, ValueList};
+use rocket::serde::{Serialize, Deserialize};
 
 
 pub type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
