@@ -78,6 +78,7 @@ fn rocket() -> _ {
         Ok(port) => {
             rocket::build()
                 .configure(rocket::Config::figment().merge(("port", port.parse::<u16>().unwrap())))
+                .configure(rocket::Config::figment().merge(("address", "0.0.0.0")))
                 .mount("/", routes![index, read_all_messages, create_message, delete_message_handler ])
         },
         Err(e) => {
