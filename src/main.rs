@@ -72,8 +72,18 @@ fn index() -> String {
 }
 #[launch]
 fn rocket() -> _ {
-    let envPort = std::env::var("PORT").unwrap();
-    rocket::build()
-        .configure(rocket::Config::figment().merge(("port", envPort.parse::<u16>().unwrap())))
-        .mount("/", routes![index, read_all_messages, create_message, delete_message_handler ])
+    let envPort = std::env::var("PORT");
+
+    match envPort {
+        Ok(port) => {
+            rocket::build()
+                .configure(rocket::Config::figment().merge(("port", port.parse::<u16>().unwrap())))
+                .mount("/", routes![index, read_all_messages, create_message, delete_message_handler ])
+        },
+        Err(e) => {
+            rocket::build()
+                .attach(CORS)
+                .mount("/", routes![index, read_all_messages, create_message, delete_message_handler ])
+        }
+    }
 }
