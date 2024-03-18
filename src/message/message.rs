@@ -1,5 +1,4 @@
 use chrono::Utc;
-use futures::StreamExt;
 use scylla::{FromRow, SerializeRow, Session, ValueList};
 use rocket::serde::{Serialize, Deserialize};
 
